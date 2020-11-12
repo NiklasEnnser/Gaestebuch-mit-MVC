@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GästebuchModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbl_Admin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="Benutzername" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Passwort" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbl_Eintrag" Relationship="Self.FK_autorisiert_von" FromRole="tbl_Admin" ToRole="tbl_Eintrag" />
+  </EntityType>
+  <EntityType Name="tbl_Eintrag">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="Vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Nachname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Detailtext" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Verbesserungen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Bewertung" Type="Byte" />
+    <Property Name="Datum" Type="DateTime" Precision="3" />
+    <Property Name="autorisiert_von" Type="Guid" />
+    <NavigationProperty Name="tbl_Admin" Relationship="Self.FK_autorisiert_von" FromRole="tbl_Eintrag" ToRole="tbl_Admin" />
+  </EntityType>
+  <EntityType Name="tbl_Log">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="IP_Adresse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Vorgang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Datum" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK_autorisiert_von">
+    <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="0..1" />
+    <End Role="tbl_Eintrag" Type="Self.tbl_Eintrag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Admin">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tbl_Eintrag">
+        <PropertyRef Name="autorisiert_von" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GästebuchEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" />
+    <EntitySet Name="tbl_Eintrag" EntityType="Self.tbl_Eintrag" />
+    <EntitySet Name="tbl_Log" EntityType="Self.tbl_Log" />
+    <AssociationSet Name="FK_autorisiert_von" Association="Self.FK_autorisiert_von">
+      <End Role="tbl_Admin" EntitySet="tbl_Admin" />
+      <End Role="tbl_Eintrag" EntitySet="tbl_Eintrag" />
+    </AssociationSet>
+    <FunctionImport Name="usp_EinträgeAutorisieren">
+      <Parameter Name="EintragID" Mode="In" Type="String" />
+      <Parameter Name="AdminID" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="usp_EinträgeLöschen">
+      <Parameter Name="IpAdresse" Mode="In" Type="String" />
+      <Parameter Name="EintragID" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

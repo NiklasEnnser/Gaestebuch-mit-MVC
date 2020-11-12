@@ -12,7 +12,7 @@ namespace Gästebuch.Controllers
 {
     public class tbl_AdminController : Controller
     {
-        private GästebuchEntities db = new GästebuchEntities();
+        private GästebuchEntities1 db = new GästebuchEntities1();
 
         // GET: tbl_Admin
         public ActionResult Index()

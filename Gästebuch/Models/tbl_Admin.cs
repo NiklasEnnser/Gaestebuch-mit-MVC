@@ -13,7 +13,6 @@ namespace Gästebuch.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-
     public partial class tbl_Admin
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,10 +22,8 @@ namespace Gästebuch.Models
         }
     
         public System.Guid ID { get; set; }
-
         [Required(ErrorMessage = "Input Required")]
         public string Benutzername { get; set; }
-
         [Required(ErrorMessage = "Input Required")]
         public string Passwort { get; set; }
         public string LoginErrorMsg { get; set; }

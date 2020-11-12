@@ -13,7 +13,7 @@ namespace Gästebuch.Controllers
 {
     public class tbl_EintragController : Controller
     {
-        private GästebuchEntities db = new GästebuchEntities();
+        private GästebuchEntities1 db = new GästebuchEntities1();
 
         // GET: tbl_Eintrag
         public ActionResult Index()
@@ -62,7 +62,7 @@ namespace Gästebuch.Controllers
 
                 tbl_Log.ID = Guid.NewGuid();
                 tbl_Log.Vorgang = "neuer Eintrag wurde erstellt";
-                tbl_Log.Datum = DateTime.Now.ToString();
+                tbl_Log.Datum = DateTime.Now;
                 tbl_Log.IP_Adresse = Request.UserHostAddress;
                 db.tbl_Log.Add(tbl_Log);
 
@@ -103,15 +103,36 @@ namespace Gästebuch.Controllers
             return RedirectToAction("Index");
         }
 
- 
+
+        public ActionResult Edit(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            tbl_Eintrag tbl_Eintrag = db.tbl_Eintrag.Find(id);
+            if (tbl_Eintrag == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.autorisiert_von = new SelectList(db.tbl_Admin, "ID", "Benutzername", tbl_Eintrag.autorisiert_von);
+            return View(tbl_Eintrag);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(tbl_Eintrag tbl_Eintrag)
+        public ActionResult Edit( tbl_Eintrag tbl_Eintrag, tbl_Log tbl_Log)
         {
             if (ModelState.IsValid)
-            {
-                tbl_Eintrag.autorisiert_von == Session["userID"];
+            {         
                 db.Entry(tbl_Eintrag).State = EntityState.Modified;
+
+                tbl_Log.ID = Guid.NewGuid();
+                tbl_Log.Vorgang = "Admin *" + Session["userName"] + "* hat einen Eintrag autorisiert";
+                tbl_Log.Datum = DateTime.Now;
+                tbl_Log.IP_Adresse = Request.UserHostAddress;
+                db.tbl_Log.Add(tbl_Log);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

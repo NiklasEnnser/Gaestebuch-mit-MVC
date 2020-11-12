@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GästebuchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_Admin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Benutzername" Type="nvarchar" MaxLength="50" />
+    <Property Name="Passwort" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_Eintrag">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Vorname" Type="nvarchar" MaxLength="50" />
+    <Property Name="Nachname" Type="nvarchar" MaxLength="50" />
+    <Property Name="Detailtext" Type="nvarchar" MaxLength="50" />
+    <Property Name="Verbesserungen" Type="nvarchar" MaxLength="50" />
+    <Property Name="Bewertung" Type="tinyint" />
+    <Property Name="Datum" Type="datetime" />
+    <Property Name="autorisiert_von" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="tbl_Log">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IP-Adresse" Type="nvarchar" MaxLength="50" />
+    <Property Name="Vorgang" Type="nvarchar" MaxLength="50" />
+    <Property Name="Datum" Type="datetime" />
+  </EntityType>
+  <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6013: Für Tabelle/Sicht 'Gästebuch.dbo.view_Einträge' ist kein Primärschlüssel definiert, und es konnte kein gültiger Primärschlüssel abgeleitet werden. Diese Tabelle/Sicht wurde ausgeschlossen. Wenn Sie die Entität verwenden möchten, müssen Sie das Schema überprüfen, die richtigen Schlüssel hinzufügen und die Auskommentierung aufheben.
+        <EntityType Name="view_Einträge">
+          <Property Name="Vorname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nachname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Detailtext" Type="nvarchar" MaxLength="50" />
+          <Property Name="Verbesserungen" Type="nvarchar" MaxLength="50" />
+          <Property Name="Bewertung" Type="tinyint" />
+        </EntityType>-->
+  <Association Name="FK_autorisiert_von">
+    <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="0..1" />
+    <End Role="tbl_Eintrag" Type="Self.tbl_Eintrag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Admin">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tbl_Eintrag">
+        <PropertyRef Name="autorisiert_von" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="usp_EinträgeAutorisieren" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EintragID" Type="nvarchar" Mode="In" />
+    <Parameter Name="AdminID" Type="uniqueidentifier" Mode="In" />
+  </Function>
+  <Function Name="usp_EinträgeLöschen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IpAdresse" Type="nvarchar" Mode="In" />
+    <Parameter Name="EintragID" Type="nvarchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="GästebuchModelStoreContainer">
+    <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Eintrag" EntityType="Self.tbl_Eintrag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Log" EntityType="Self.tbl_Log" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_autorisiert_von" Association="Self.FK_autorisiert_von">
+      <End Role="tbl_Admin" EntitySet="tbl_Admin" />
+      <End Role="tbl_Eintrag" EntitySet="tbl_Eintrag" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

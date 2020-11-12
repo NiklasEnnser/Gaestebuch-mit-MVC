@@ -17,6 +17,6 @@ namespace Gästebuch.Models
         public System.Guid ID { get; set; }
         public string IP_Adresse { get; set; }
         public string Vorgang { get; set; }
-        public string Datum { get; set; }
+        public Nullable<System.DateTime> Datum { get; set; }
     }
 }

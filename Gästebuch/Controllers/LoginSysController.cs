@@ -17,7 +17,7 @@ namespace GaesteBuch.Controllers
         [HttpPost]
         public ActionResult Autho(tbl_Admin admin, tbl_Log tbl_Log)
         {
-            using (GästebuchEntities db = new GästebuchEntities())
+            using (GästebuchEntities1 db = new GästebuchEntities1())
             {
                 var userInhalt = db.tbl_Admin.Where(x => x.Benutzername == admin.Benutzername && x.Passwort == admin.Passwort).FirstOrDefault();
                 if (userInhalt == null)
@@ -27,12 +27,13 @@ namespace GaesteBuch.Controllers
                 }
                 else
                 {
-                    Session["userID"] = admin.ID;
+                    Session["userID"] = userInhalt.ID;
                     Session["userName"] = admin.Benutzername;
-
+                    
+                    
                     tbl_Log.ID = Guid.NewGuid();
                     tbl_Log.Vorgang = "Admin *"+ userInhalt.Benutzername +"* hat sich eingeloggt";
-                    tbl_Log.Datum = DateTime.Now.ToString();
+                    tbl_Log.Datum = DateTime.Now;
                     tbl_Log.IP_Adresse = Request.UserHostAddress;
                     db.tbl_Log.Add(tbl_Log);
 
@@ -44,11 +45,11 @@ namespace GaesteBuch.Controllers
         }
         public ActionResult LogOut(tbl_Log tbl_Log)
         {
-            using (GästebuchEntities db = new GästebuchEntities())
+            using (GästebuchEntities1 db = new GästebuchEntities1())
             {
                 tbl_Log.ID = Guid.NewGuid();
                 tbl_Log.Vorgang = "Admin *" + Session["userName"] + "* hat sich ausgeloggt";
-                tbl_Log.Datum = DateTime.Now.ToString();
+                tbl_Log.Datum = DateTime.Now;
                 tbl_Log.IP_Adresse = Request.UserHostAddress;
                 db.tbl_Log.Add(tbl_Log);
 

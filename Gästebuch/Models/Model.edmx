@@ -33,8 +33,17 @@
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IP-Adresse" Type="nvarchar" MaxLength="50" />
           <Property Name="Vorgang" Type="nvarchar" MaxLength="50" />
-          <Property Name="Datum" Type="nvarchar" MaxLength="50" />
+          <Property Name="Datum" Type="datetime" />
         </EntityType>
+        <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6013: Für Tabelle/Sicht 'Gästebuch.dbo.view_Einträge' ist kein Primärschlüssel definiert, und es konnte kein gültiger Primärschlüssel abgeleitet werden. Diese Tabelle/Sicht wurde ausgeschlossen. Wenn Sie die Entität verwenden möchten, müssen Sie das Schema überprüfen, die richtigen Schlüssel hinzufügen und die Auskommentierung aufheben.
+        <EntityType Name="view_Einträge">
+          <Property Name="Vorname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nachname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Detailtext" Type="nvarchar" MaxLength="50" />
+          <Property Name="Verbesserungen" Type="nvarchar" MaxLength="50" />
+          <Property Name="Bewertung" Type="tinyint" />
+        </EntityType>-->
         <Association Name="FK_autorisiert_von">
           <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="0..1" />
           <End Role="tbl_Eintrag" Type="Self.tbl_Eintrag" Multiplicity="*" />
@@ -47,6 +56,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="usp_EinträgeAutorisieren" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EintragID" Type="nvarchar" Mode="In" />
+          <Parameter Name="AdminID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="usp_EinträgeLöschen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IpAdresse" Type="nvarchar" Mode="In" />
+          <Parameter Name="EintragID" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="GästebuchModelStoreContainer">
           <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Eintrag" EntityType="Self.tbl_Eintrag" Schema="dbo" store:Type="Tables" />
@@ -91,7 +108,7 @@
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="IP_Adresse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Vorgang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Datum" Type="String" />
+          <Property Name="Datum" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_autorisiert_von">
           <End Role="tbl_Admin" Type="Self.tbl_Admin" Multiplicity="0..1" />
@@ -105,7 +122,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="GästebuchEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="GästebuchEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" />
           <EntitySet Name="tbl_Eintrag" EntityType="Self.tbl_Eintrag" />
           <EntitySet Name="tbl_Log" EntityType="Self.tbl_Log" />
@@ -113,13 +130,21 @@
             <End Role="tbl_Admin" EntitySet="tbl_Admin" />
             <End Role="tbl_Eintrag" EntitySet="tbl_Eintrag" />
           </AssociationSet>
+          <FunctionImport Name="usp_EinträgeAutorisieren">
+            <Parameter Name="EintragID" Mode="In" Type="String" />
+            <Parameter Name="AdminID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="usp_EinträgeLöschen">
+            <Parameter Name="IpAdresse" Mode="In" Type="String" />
+            <Parameter Name="EintragID" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GästebuchModelStoreContainer" CdmEntityContainer="GästebuchEntities">
+        <EntityContainerMapping StorageEntityContainer="GästebuchModelStoreContainer" CdmEntityContainer="GästebuchEntities1">
           <EntitySetMapping Name="tbl_Admin">
             <EntityTypeMapping TypeName="GästebuchModel.tbl_Admin">
               <MappingFragment StoreEntitySet="tbl_Admin">
@@ -153,6 +178,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_EinträgeAutorisieren" FunctionName="GästebuchModel.Store.usp_EinträgeAutorisieren" />
+          <FunctionImportMapping FunctionImportName="usp_EinträgeLöschen" FunctionName="GästebuchModel.Store.usp_EinträgeLöschen" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

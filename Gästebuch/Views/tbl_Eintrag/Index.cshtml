@@ -56,11 +56,38 @@
                     @Html.DisplayFor(modelItem => item.Datum)
                 </td>
                 <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.ID })                 
+                </td>
+            </tr>
+        }
+        else if (item.autorisiert_von == null && Session["userID"] != null)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vorname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nachname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Detailtext)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Verbesserungen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bewertung)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datum)
+                </td>
+                <td>
                     @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+
                     @if (Session["userID"] != null)
                     {
-                        @Html.ActionLink("auutorisieren", "autorisieren" )
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
+                        @Html.ActionLink("autorisieren", "Edit", new { id = item.ID })
                     }
                 </td>
             </tr>
