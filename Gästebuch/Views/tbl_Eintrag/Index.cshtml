@@ -86,8 +86,12 @@
 
                     @if (Session["userID"] != null)
                     {
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
-                        @Html.ActionLink("autorisieren", "Edit", new { id = item.ID })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    } |
+                    @if (Session["userID"] != null) 
+                    {
+
+                    @Html.ActionLink("autorisieren", "Edit", new { id = item.ID })
                     }
                 </td>
             </tr>

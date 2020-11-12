@@ -20,8 +20,8 @@
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Vorname" Type="nvarchar" MaxLength="50" />
           <Property Name="Nachname" Type="nvarchar" MaxLength="50" />
-          <Property Name="Detailtext" Type="nvarchar" MaxLength="50" />
-          <Property Name="Verbesserungen" Type="nvarchar" MaxLength="50" />
+          <Property Name="Detailtext" Type="nvarchar" MaxLength="500" />
+          <Property Name="Verbesserungen" Type="nvarchar" MaxLength="500" />
           <Property Name="Bewertung" Type="tinyint" />
           <Property Name="Datum" Type="datetime" />
           <Property Name="autorisiert_von" Type="uniqueidentifier" />
@@ -40,8 +40,8 @@ Warnung 6013: Für Tabelle/Sicht 'Gästebuch.dbo.view_Einträge' ist kein Primä
         <EntityType Name="view_Einträge">
           <Property Name="Vorname" Type="nvarchar" MaxLength="50" />
           <Property Name="Nachname" Type="nvarchar" MaxLength="50" />
-          <Property Name="Detailtext" Type="nvarchar" MaxLength="50" />
-          <Property Name="Verbesserungen" Type="nvarchar" MaxLength="50" />
+          <Property Name="Detailtext" Type="nvarchar" MaxLength="500" />
+          <Property Name="Verbesserungen" Type="nvarchar" MaxLength="500" />
           <Property Name="Bewertung" Type="tinyint" />
         </EntityType>-->
         <Association Name="FK_autorisiert_von">
@@ -94,8 +94,8 @@ Warnung 6013: Für Tabelle/Sicht 'Gästebuch.dbo.view_Einträge' ist kein Primä
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="Vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Nachname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Detailtext" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Verbesserungen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Detailtext" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Verbesserungen" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Bewertung" Type="Byte" />
           <Property Name="Datum" Type="DateTime" Precision="3" />
           <Property Name="autorisiert_von" Type="Guid" />

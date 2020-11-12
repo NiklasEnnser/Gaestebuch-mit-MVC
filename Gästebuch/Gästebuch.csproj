@@ -221,11 +221,6 @@
     <Content Include="Views\tbl_Eintrag\Delete.cshtml" />
     <Content Include="Views\tbl_Eintrag\Details.cshtml" />
     <Content Include="Views\tbl_Eintrag\Index.cshtml" />
-    <Content Include="Views\tbl_Admin\Create.cshtml" />
-    <Content Include="Views\tbl_Admin\Delete.cshtml" />
-    <Content Include="Views\tbl_Admin\Details.cshtml" />
-    <Content Include="Views\tbl_Admin\Edit.cshtml" />
-    <Content Include="Views\tbl_Admin\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\tbl_Eintrag\Edit.cshtml" />
