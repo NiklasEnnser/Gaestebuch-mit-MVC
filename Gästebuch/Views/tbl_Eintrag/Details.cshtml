@@ -1,0 +1,66 @@
+﻿@model Gästebuch.Models.tbl_Eintrag
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbl_Eintrag</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Vorname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vorname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nachname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nachname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Detailtext)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Detailtext)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Verbesserungen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Verbesserungen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bewertung)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bewertung)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Datum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Datum)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

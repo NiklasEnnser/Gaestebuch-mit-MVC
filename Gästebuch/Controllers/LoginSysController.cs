@@ -1,0 +1,62 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Gästebuch.Models;
+
+namespace GaesteBuch.Controllers
+{
+    public class LoginSysController : Controller
+    {
+        // GET: LoginSys
+        public ActionResult Index()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Autho(tbl_Admin admin, tbl_Log tbl_Log)
+        {
+            using (GästebuchEntities db = new GästebuchEntities())
+            {
+                var userInhalt = db.tbl_Admin.Where(x => x.Benutzername == admin.Benutzername && x.Passwort == admin.Passwort).FirstOrDefault();
+                if (userInhalt == null)
+                {
+                    admin.LoginErrorMsg = "Invalid Data";
+                    return View("~/Views/Home/Login.cshtml", admin);
+                }
+                else
+                {
+                    Session["userID"] = admin.ID;
+                    Session["userName"] = admin.Benutzername;
+
+                    tbl_Log.ID = Guid.NewGuid();
+                    tbl_Log.Vorgang = "Admin *"+ userInhalt.Benutzername +"* hat sich eingeloggt";
+                    tbl_Log.Datum = DateTime.Now.ToString();
+                    tbl_Log.IP_Adresse = Request.UserHostAddress;
+                    db.tbl_Log.Add(tbl_Log);
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index", "tbl_Eintrag");
+                }
+            }
+        }
+        public ActionResult LogOut(tbl_Log tbl_Log)
+        {
+            using (GästebuchEntities db = new GästebuchEntities())
+            {
+                tbl_Log.ID = Guid.NewGuid();
+                tbl_Log.Vorgang = "Admin *" + Session["userName"] + "* hat sich ausgeloggt";
+                tbl_Log.Datum = DateTime.Now.ToString();
+                tbl_Log.IP_Adresse = Request.UserHostAddress;
+                db.tbl_Log.Add(tbl_Log);
+
+                db.SaveChanges();
+            }
+                Session.Abandon();
+
+            return RedirectToAction("Index", "Home");
+        }
+    }
+}

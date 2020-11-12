@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Gästebuch.Models.tbl_Eintrag>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Vorname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nachname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Detailtext)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Verbesserungen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bewertung)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Datum)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.autorisiert_von != null)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vorname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nachname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Detailtext)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Verbesserungen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bewertung)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datum)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    @if (Session["userID"] != null)
+                    {
+                        @Html.ActionLink("auutorisieren", "autorisieren" )
+                    }
+                </td>
+            </tr>
+        }
+    }
+
+    </table>

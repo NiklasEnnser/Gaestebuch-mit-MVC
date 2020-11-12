@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GästebuchModelStoreContainer" CdmEntityContainer="GästebuchEntities">
+    <EntitySetMapping Name="tbl_Admin">
+      <EntityTypeMapping TypeName="GästebuchModel.tbl_Admin">
+        <MappingFragment StoreEntitySet="tbl_Admin">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Benutzername" ColumnName="Benutzername" />
+          <ScalarProperty Name="Passwort" ColumnName="Passwort" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Eintrag">
+      <EntityTypeMapping TypeName="GästebuchModel.tbl_Eintrag">
+        <MappingFragment StoreEntitySet="tbl_Eintrag">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+          <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+          <ScalarProperty Name="Detailtext" ColumnName="Detailtext" />
+          <ScalarProperty Name="Verbesserungen" ColumnName="Verbesserungen" />
+          <ScalarProperty Name="Bewertung" ColumnName="Bewertung" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+          <ScalarProperty Name="autorisiert_von" ColumnName="autorisiert_von" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Log">
+      <EntityTypeMapping TypeName="GästebuchModel.tbl_Log">
+        <MappingFragment StoreEntitySet="tbl_Log">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="IP_Adresse" ColumnName="IP-Adresse" />
+          <ScalarProperty Name="Vorgang" ColumnName="Vorgang" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

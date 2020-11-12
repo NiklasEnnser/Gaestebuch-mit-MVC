@@ -1,0 +1,80 @@
+﻿@model Gästebuch.Models.tbl_Eintrag
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>tbl_Eintrag</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Vorname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vorname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nachname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nachname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Detailtext)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Detailtext)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Verbesserungen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Verbesserungen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bewertung)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bewertung)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Datum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Datum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbl_Admin.Benutzername)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbl_Admin.Benutzername)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

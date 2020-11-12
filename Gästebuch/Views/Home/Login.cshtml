@@ -1,0 +1,35 @@
+﻿@model Gästebuch.Models.tbl_Admin
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        @using (Html.BeginForm("Autho", "LoginSys", FormMethod.Post))
+        {
+            <!-- Login Form -->
+            <h2 class="h2-login">Admin Login</h2>
+            <form>
+                @Html.EditorFor(model => model.Benutzername, new { htmlAttributes = new { @class = "fadeIn second", @id = "login", placeholder = "Username", name = "login", } })
+                <!--Error Message-->
+                <p>@Html.ValidationMessageFor(model => model.Benutzername)</p>
+
+                @Html.EditorFor(model => model.Passwort, new { htmlAttributes = new { @class = "fadeIn third", @id = "password", placeholder = "Password", name = "login", type = "password" } })
+                <!--Error Message-->
+                <p>@Html.ValidationMessageFor(model => model.Passwort)</p>
+                <br />
+                <input type="submit" class="fadeIn fourth" value="Log In">
+                <!--Password Wrong-->
+                <p>@Html.DisplayFor(model => model.LoginErrorMsg)</p>
+
+            </form>
+        }
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" href="~/Home/Contact">Forgot Password?</a>
+        </div>
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    </div>
+</div>
