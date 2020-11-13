@@ -56,7 +56,7 @@ namespace Gästebuch.Controllers
             if (ModelState.IsValid)
             {
                 tbl_Eintrag.ID = Guid.NewGuid();
-                tbl_Eintrag.Datum = DateTime.Now;
+                tbl_Eintrag.Datum = DateTime.Now; 
                 db.tbl_Eintrag.Add(tbl_Eintrag);
                 
 
@@ -108,6 +108,7 @@ namespace Gästebuch.Controllers
         {
             if (id == null)
             {
+               
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             tbl_Eintrag tbl_Eintrag = db.tbl_Eintrag.Find(id);
@@ -124,9 +125,9 @@ namespace Gästebuch.Controllers
         public ActionResult Edit([Bind(Include = "ID,Vorname,Nachname,Detailtext,Verbesserungen,Datum,Bewertung,autorisiert_von")] tbl_Eintrag tbl_Eintrag, tbl_Log tbl_Log)
         {
             if (ModelState.IsValid)
-            {         
-                db.Entry(tbl_Eintrag).State = EntityState.Modified;
-
+            {
+               db.Entry(tbl_Eintrag).State = EntityState.Modified;
+          
                 tbl_Log.ID = Guid.NewGuid();
                 tbl_Log.Vorgang = "Admin *" + Session["userName"] + "* hat einen Eintrag autorisiert";
                 tbl_Log.Datum = DateTime.Now;

@@ -11,7 +11,8 @@ namespace Gästebuch.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tbl_Eintrag
     {
         public System.Guid ID { get; set; }
@@ -20,6 +21,8 @@ namespace Gästebuch.Models
         public string Detailtext { get; set; }
         public string Verbesserungen { get; set; }
         public Nullable<byte> Bewertung { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm:ss}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> Datum { get; set; }
         public Nullable<System.Guid> autorisiert_von { get; set; }
     
