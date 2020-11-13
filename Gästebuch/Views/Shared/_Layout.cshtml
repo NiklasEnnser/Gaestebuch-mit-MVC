@@ -21,7 +21,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("anzeigen", "Create", "tbl_Eintrag/Index")</li>
-                    <li>@Html.ActionLink("erstellen", "Contact", "tbl_Eintrag/Create")</li>
+                    <li><a class="" href="../tbl_Eintrag/Create">erstellen</a></li>
                     <li>@Html.ActionLink("Login", "Contact", "Home")</li>
                     @if (Session["userID"] != null) { 
                     <li>@Html.ActionLink("Logout", "LogOut", "LoginSys")</li>}

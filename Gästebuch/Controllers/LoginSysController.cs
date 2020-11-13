@@ -22,7 +22,6 @@ namespace GaesteBuch.Controllers
                 var userInhalt = db.tbl_Admin.Where(x => x.Benutzername == admin.Benutzername && x.Passwort == admin.Passwort).FirstOrDefault();
                 if (userInhalt == null)
                 {
-                    admin.LoginErrorMsg = "Invalid Data";
                     return View("~/Views/Home/Login.cshtml", admin);
                 }
                 else

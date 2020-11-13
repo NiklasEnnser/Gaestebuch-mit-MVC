@@ -19,7 +19,7 @@
     <Property Name="Detailtext" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="Verbesserungen" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="Bewertung" Type="Byte" />
-    <Property Name="Datum" Type="DateTime" Precision="3" />
+    <Property Name="Datum" Type="DateTime" Precision="0" />
     <Property Name="autorisiert_von" Type="Guid" />
     <NavigationProperty Name="tbl_Admin" Relationship="Self.FK_autorisiert_von" FromRole="tbl_Eintrag" ToRole="tbl_Admin" />
   </EntityType>

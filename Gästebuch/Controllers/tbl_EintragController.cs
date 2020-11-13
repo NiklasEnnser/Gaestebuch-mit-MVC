@@ -121,7 +121,7 @@ namespace Gästebuch.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( tbl_Eintrag tbl_Eintrag, tbl_Log tbl_Log)
+        public ActionResult Edit([Bind(Include = "ID,Vorname,Nachname,Detailtext,Verbesserungen,Datum,Bewertung,autorisiert_von")] tbl_Eintrag tbl_Eintrag, tbl_Log tbl_Log)
         {
             if (ModelState.IsValid)
             {         
