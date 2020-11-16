@@ -59,6 +59,7 @@ namespace Gästebuch.Controllers
                 tbl_Eintrag.Datum = DateTime.Now; 
                 db.tbl_Eintrag.Add(tbl_Eintrag);
                 
+                
 
                 tbl_Log.ID = Guid.NewGuid();
                 tbl_Log.Vorgang = "neuer Eintrag wurde erstellt";

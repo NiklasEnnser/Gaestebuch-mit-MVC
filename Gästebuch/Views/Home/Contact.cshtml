@@ -10,22 +10,25 @@
             <!-- Login Form -->
             <h2 class="h2-login">Admin Login</h2>
             <form>
-                @Html.EditorFor(model => model.Benutzername, new { htmlAttributes = new { @class = "fadeIn second", @id = "login", placeholder = "Username", name = "login", } })
+                @Html.EditorFor(model => model.Benutzername, new { htmlAttributes = new { @class = "", @id = "login", placeholder = "Username", name = "login", } })
                 <!--Error Message-->
                 <p>@Html.ValidationMessageFor(model => model.Benutzername)</p>
 
-                @Html.EditorFor(model => model.Passwort, new { htmlAttributes = new { @class = "fadeIn third", @id = "password", placeholder = "Password", name = "login", type = "password" } })
+                @Html.EditorFor(model => model.Passwort, new { htmlAttributes = new { @class = "", @id = "password", placeholder = "Password", name = "login", type = "password" } })
                 <!--Error Message-->
                 <p>@Html.ValidationMessageFor(model => model.Passwort)</p>
+
+                @Html.EditorFor(model => model.twoStep, new { htmlAttributes = new { @class = "", @id = "twoStep", placeholder = "Modul ...", name = "login" } })
+                <!--Error Message-->
+                <p>@Html.ValidationMessageFor(model => model.twoStep)</p>
                 <br />
                 <input type="submit" class="fadeIn fourth" value="Log In">
+
+                <p>@Html.DisplayFor(model => model.ErrorMsg)</p>
 
             </form>
         }
         <!-- Remind Passowrd -->
-        <div id="formFooter">
-            <a class="underlineHover" href="~/Home/Contact">Forgot Password?</a>
-        </div>
         <script src="~/Scripts/jquery-3.4.1.min.js"></script>
         <script src="~/Scripts/jquery.validate.min.js"></script>
         <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

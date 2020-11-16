@@ -19,10 +19,13 @@ namespace GaesteBuch.Controllers
         {
             using (GästebuchEntities1 db = new GästebuchEntities1())
             {
-                var userInhalt = db.tbl_Admin.Where(x => x.Benutzername == admin.Benutzername && x.Passwort == admin.Passwort).FirstOrDefault();
-                if (userInhalt == null)
+                var X = admin.Passwort.GetHashCode();
+                string y = X.ToString();
+                var userInhalt = db.tbl_Admin.Where(x => x.Benutzername == admin.Benutzername && x.Passwort == y && admin.twoStep == "133").FirstOrDefault();
+                if (userInhalt == null )
                 {
-                    return View("~/Views/Home/Login.cshtml", admin);
+                    admin.ErrorMsg = "Invalid Data";
+                    return View("~/Views/Home/Contact.cshtml", admin);
                 }
                 else
                 {
