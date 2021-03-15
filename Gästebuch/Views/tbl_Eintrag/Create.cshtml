@@ -51,15 +51,15 @@
             @Html.LabelFor(model => model.Bewertung, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 1
-                @Html.RadioButtonFor(model => model.Bewertung, "0")
+                @Html.RadioButtonFor(model => model.Bewertung, "1")
                 2
-                @Html.RadioButtonFor(model => model.Bewertung, "1")
+                @Html.RadioButtonFor(model => model.Bewertung, "2")
                 3
-                @Html.RadioButtonFor(model => model.Bewertung, "0")
+                @Html.RadioButtonFor(model => model.Bewertung, "3")
                 4
-                @Html.RadioButtonFor(model => model.Bewertung, "1")
+                @Html.RadioButtonFor(model => model.Bewertung, "4")
                 5
-                @Html.RadioButtonFor(model => model.Bewertung, "0")
+                @Html.RadioButtonFor(model => model.Bewertung, "5")
                 @Html.ValidationMessageFor(model => model.Bewertung, "", new { @class = "text-danger" })
             </div>
         </div>
